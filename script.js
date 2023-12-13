@@ -1,5 +1,11 @@
-const gameboard = () => {
-  return 10;
-};
+const Gameboard = () => {
+  const board = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
 
-console.log(gameboard());
+  const getBoard = () => {
+    return board;
+  };
+};

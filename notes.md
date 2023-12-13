@@ -14,8 +14,7 @@ DURING GAME
 
 END GAME
 
-- while loop during the entire game
-- play best out of 3 rounds
 - update scoreboard after each round
-- final message saying who the winner is (or if there is a tie)
-- disable all buttons except for the reset
+- message should pop up and announce the winner
+- reset will set the scores back to 0
+- otherwise rounds will continue to add up
