@@ -11,17 +11,15 @@ const Gameboard = (() => {
     ];
   }
 
-  function getCurrentBoard() {
-    [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ];
+  const currentBoard = createGameBoard();
+
+  function resetGame() {
+    createGameBoard();
   }
 
   return {
     createGameBoard,
-    getCurrentBoard,
+    currentBoard,
   };
 })();
 
