@@ -1,21 +1,45 @@
-const startScreen = (() => {
+const StartScreen = (() => {
   // select one or two players
 })();
 
-const gameboard = (() => {
-  // this will have everything related specifically with the gameboard
+const Gameboard = (() => {
+  function createGameBoard() {
+    return [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+  }
+
+  function getCurrentBoard() {
+    [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+  }
+
+  return {
+    createGameBoard,
+    getCurrentBoard,
+  };
 })();
 
-const players = (() => {
+const Players = (() => {
   // object containing both players, human or AI etc, X or O, turn, etc.
-  function createPlayers(player) {
+  function createPlayers(player, symbol, turn) {
     return {
       name: player,
+      symbol: symbol,
+      score: 0,
+      type: "human",
+      checkedBoxes: [],
+      playersTurn: turn,
     };
   }
 
   return {
-    playerOne: createPlayers("p1"),
-    playerTwo: createPlayers("p2"),
+    playerOne: createPlayers("p1", "X", true),
+    playerTwo: createPlayers("p2", "O", false),
   };
 })();
