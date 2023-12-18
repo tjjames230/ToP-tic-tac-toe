@@ -42,8 +42,8 @@ const Players = (() => {
   const playerOne = createPlayers("p1", "X", "human", true);
   const playerTwo = createPlayers("p2", "O", "ai", false);
 
-  function getPlayerTurn() {
-    return Players.playerOne.playersTurn;
+  function getPlayerTurn(player) {
+    return player.playersTurn;
   }
 
   return {
@@ -52,3 +52,5 @@ const Players = (() => {
     getPlayerTurn,
   };
 })();
+
+console.log(Players.getPlayerTurn(Players.playerTwo));
