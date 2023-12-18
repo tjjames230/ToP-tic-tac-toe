@@ -1,23 +1,31 @@
 const Gameboard = (() => {
+  let gameOver = false;
+
   let currentBoard = [
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
   ];
 
-  function getCurrentBoard() {
+  const getCurrentBoard = () => {
     return currentBoard;
-  }
+  };
 
-  function makeMove() {}
+  const makeMove = () => {
+    if (Players.playerOne.playersTurn === true) {
+      let row = window.prompt("Pick a row: ");
+      let column = window.prompt("Pick a column: ");
+      getCurrentBoard()[row][column] = Players.playerOne.symbol;
+    }
+  };
 
-  function resetGame() {
+  const resetGame = () => {
     currentBoard = [
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
     ];
-  }
+  };
 
   return {
     getCurrentBoard,
@@ -28,7 +36,7 @@ const Gameboard = (() => {
 
 const Players = (() => {
   // object containing both players, human or AI etc, X or O, turn, etc.
-  function createPlayers(player, symbol, type, turn) {
+  const createPlayers = (player, symbol, type, turn) => {
     return {
       name: player,
       symbol: symbol,
@@ -37,20 +45,13 @@ const Players = (() => {
       checkedBoxes: [],
       playersTurn: turn,
     };
-  }
+  };
 
   const playerOne = createPlayers("p1", "X", "human", true);
   const playerTwo = createPlayers("p2", "O", "ai", false);
 
-  function getPlayerTurn(player) {
-    return player.playersTurn;
-  }
-
   return {
     playerOne,
     playerTwo,
-    getPlayerTurn,
   };
 })();
-
-console.log(Players.getPlayerTurn(Players.playerTwo));
