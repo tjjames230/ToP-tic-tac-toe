@@ -1,13 +1,9 @@
 const Gameboard = (() => {
-  let gameOver = false;
-
   let currentBoard = [
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
   ];
-
-  const checkGameOver = () => {};
 
   const getCurrentBoard = () => {
     return currentBoard;
@@ -32,18 +28,30 @@ const Gameboard = (() => {
       ["", "", ""],
       ["", "", ""],
     ];
+    Players.playerOne.playersTurn = true;
+    Players.playerTwo.playersTurn = false;
   };
 
   return {
-    checkGameOver,
     getCurrentBoard,
     makeMove,
     resetGame,
   };
 })();
 
+const GameController = (() => {
+  let gameOver = false;
+
+  const checkGameOver = () => {
+    return gameOver;
+  };
+
+  return {
+    checkGameOver,
+  };
+})();
+
 const Players = (() => {
-  // object containing both players, human or AI etc, X or O, turn, etc.
   const createPlayers = (player, symbol, type, turn) => {
     return {
       name: player,
