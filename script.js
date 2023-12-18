@@ -1,43 +1,54 @@
-const StartScreen = (() => {
-  // select one or two players
-})();
-
 const Gameboard = (() => {
-  function createGameBoard() {
-    return [
+  let currentBoard = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
+
+  function getCurrentBoard() {
+    return currentBoard;
+  }
+
+  function makeMove() {}
+
+  function resetGame() {
+    currentBoard = [
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
     ];
   }
 
-  const currentBoard = createGameBoard();
-
-  function resetGame() {
-    createGameBoard();
-  }
-
   return {
-    createGameBoard,
-    currentBoard,
+    getCurrentBoard,
+    makeMove,
+    resetGame,
   };
 })();
 
 const Players = (() => {
   // object containing both players, human or AI etc, X or O, turn, etc.
-  function createPlayers(player, symbol, turn) {
+  function createPlayers(player, symbol, type, turn) {
     return {
       name: player,
       symbol: symbol,
       score: 0,
-      type: "human",
+      type: type,
       checkedBoxes: [],
       playersTurn: turn,
     };
   }
 
+  const playerOne = createPlayers("p1", "X", "human", true);
+  const playerTwo = createPlayers("p2", "O", "ai", false);
+
+  function getPlayerTurn() {
+    return Players.playerOne.playersTurn;
+  }
+
   return {
-    playerOne: createPlayers("p1", "X", true),
-    playerTwo: createPlayers("p2", "O", false),
+    playerOne,
+    playerTwo,
+    getPlayerTurn,
   };
 })();
