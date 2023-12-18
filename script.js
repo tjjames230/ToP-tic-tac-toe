@@ -1,13 +1,13 @@
 const Gameboard = (() => {
   let gameOver = false;
 
-  const checkGameOver = () => {};
-
   let currentBoard = [
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
   ];
+
+  const checkGameOver = () => {};
 
   const getCurrentBoard = () => {
     return currentBoard;
@@ -16,6 +16,7 @@ const Gameboard = (() => {
   const makeMove = (player) => {
     if (Players.checkPlayerTurn(player)) {
       updateBoard(player);
+      Players.updateTurn(player);
     }
   };
 
@@ -61,9 +62,20 @@ const Players = (() => {
     return player.playersTurn;
   };
 
+  const updateTurn = (player) => {
+    if (player === playerOne) {
+      Players.playerOne.playersTurn = false;
+      Players.playerTwo.playersTurn = true;
+    } else if (player === playerTwo) {
+      Players.playerOne.playersTurn = true;
+      Players.playerTwo.playersTurn = false;
+    }
+  };
+
   return {
     playerOne,
     playerTwo,
     checkPlayerTurn,
+    updateTurn,
   };
 })();
