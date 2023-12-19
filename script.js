@@ -5,6 +5,12 @@ const Gameboard = (() => {
     ["", "", ""],
   ];
 
+  const numericalBoard = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+  ];
+
   const getCurrentBoard = () => {
     return currentBoard;
   };
@@ -20,6 +26,7 @@ const Gameboard = (() => {
     let row = window.prompt("Pick a row: ");
     let column = window.prompt("Pick a column: ");
     getCurrentBoard()[row][column] = player.symbol;
+    Players.checkedBoxes.push(numericalBoard[row][column]);
   };
 
   const resetGame = () => {
@@ -36,6 +43,7 @@ const Gameboard = (() => {
     getCurrentBoard,
     makeMove,
     resetGame,
+    numericalBoard,
   };
 })();
 
@@ -43,7 +51,25 @@ const GameController = (() => {
   let gameOver = false;
 
   const checkGameOver = () => {
+    checkWinner();
     return gameOver;
+  };
+
+  const checkWinner = (board, player) => {
+    const winningBoard = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    if (/* checked boxes matches with any winning condition */) {
+        /*  */
+    }
   };
 
   return {
