@@ -13,6 +13,7 @@ const Gameboard = (() => {
     if (Players.checkPlayerTurn(player)) {
       updateBoard(player);
       Players.updateTurn(player);
+      // GameController.checkGameOver(); <-- Uncomment this once function is completed & working.
     }
   };
 
@@ -59,15 +60,19 @@ const GameController = (() => {
   ];
 
   const checkGameOver = () => {
-    checkWinner();
+    checkWinner(Players.playerOne.checkedBoxes);
+    checkWinner(Players.playerTwo.checkedBoxes);
     return gameOver;
   };
 
-  const checkWinner = (board, player) => {
-    let updatedBoard = board.sort();
+  const checkWinner = (player) => {
+    let updatedBoard = player.checkedBoxes.sort();
 
-    if (updatedBoard) {
-      /*  */
+    for (let i = 0; i < winningBoard.length; i++) {
+      if (updatedBoard === winningBoard[i]) {
+        gameOver = true;
+        console.log(`${player} is the winner!`);
+      }
     }
   };
 
