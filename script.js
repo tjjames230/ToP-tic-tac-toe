@@ -11,6 +11,7 @@ const Gameboard = (() => {
 
   const makeMove = (player) => {
     if (Players.checkPlayerTurn(player)) {
+      /* if a valid spot is picked, it will update the player's turn */
       if (updateBoard(player)) {
         Players.updateTurn(player);
       }
@@ -69,20 +70,35 @@ const GameController = (() => {
   ];
 
   const checkGameOver = () => {
-    checkWinner(Players.playerOne.checkedBoxes);
-    checkWinner(Players.playerTwo.checkedBoxes);
+    if (checkWinner(Players.playerOne)) {
+      console.log("Player 1 is the winner!");
+    } else if (checkWinner(Players.playerTwo)) {
+      console.log("Player 2 is the winner!");
+    }
     return gameOver;
   };
 
   const checkWinner = (player) => {
-    let updatedBoard = player.checkedBoxes.sort();
+    let checkedBoxes = player.checkedBoxes;
 
     for (let i = 0; i < winningBoard.length; i++) {
-      if (updatedBoard === winningBoard[i]) {
+      const winCondition = winningBoard[i];
+      let hasWon = true;
+
+      for (let j = 0; j < winCondition.length; j++) {
+        if (!checkedBoxes.includes(winCondition[j])) {
+          hasWon = false;
+          break;
+        }
+      }
+
+      if (hasWon) {
         gameOver = true;
-        console.log(`${player} is the winner!`);
+        return true;
       }
     }
+
+    return false;
   };
 
   return {
