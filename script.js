@@ -11,8 +11,9 @@ const Gameboard = (() => {
 
   const makeMove = (player) => {
     if (Players.checkPlayerTurn(player)) {
-      updateBoard(player);
-      Players.updateTurn(player);
+      if (updateBoard(player)) {
+        Players.updateTurn(player);
+      }
       // GameController.checkGameOver(); <-- Uncomment this once function is completed & working.
     }
   };
@@ -24,6 +25,7 @@ const Gameboard = (() => {
     if (typeof getCurrentBoard()[row][column] === "number") {
       player.checkedBoxes.push(currentBoard[row][column]);
       getCurrentBoard()[row][column] = player.symbol;
+      return true;
     } else {
       console.log("That spot has been taken, please use a new number");
     }
