@@ -15,7 +15,7 @@ const Gameboard = (() => {
       if (updateBoard(player)) {
         Players.updateTurn(player);
       }
-      // GameController.checkGameOver(); <-- Uncomment this once function is completed & working.
+      GameController.checkGameOver();
     }
   };
 
@@ -70,11 +70,7 @@ const GameController = (() => {
   ];
 
   const checkGameOver = () => {
-    if (checkWinner(Players.playerOne)) {
-      console.log("Player 1 is the winner!");
-    } else if (checkWinner(Players.playerTwo)) {
-      console.log("Player 2 is the winner!");
-    }
+    checkWinner(Players.playerOne) || checkWinner(Players.playerTwo);
     return gameOver;
   };
 
@@ -94,6 +90,7 @@ const GameController = (() => {
 
       if (hasWon) {
         gameOver = true;
+        console.log(`${player.name} is the winner!`);
         return true;
       }
     }
@@ -118,8 +115,8 @@ const Players = (() => {
     };
   };
 
-  const playerOne = createPlayers("p1", "X", "human", true);
-  const playerTwo = createPlayers("p2", "O", "ai", false);
+  const playerOne = createPlayers("Player 1", "X", "human", true);
+  const playerTwo = createPlayers("Player 2", "O", "ai", false);
 
   const checkPlayerTurn = (player) => {
     return player.playersTurn;
