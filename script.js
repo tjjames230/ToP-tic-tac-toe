@@ -30,6 +30,12 @@ const Gameboard = (() => {
   };
 
   const resetGame = () => {
+    resetRound();
+    Players.playerOne.score = 0;
+    Players.playerTwo.score = 0;
+  };
+
+  const resetRound = () => {
     currentBoard = [
       [0, 1, 2],
       [3, 4, 5],
@@ -42,6 +48,7 @@ const Gameboard = (() => {
   return {
     getCurrentBoard,
     makeMove,
+    resetRound,
     resetGame,
   };
 })();
