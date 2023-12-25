@@ -7,5 +7,31 @@
     <link rel="stylesheet" href="./styles.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Tic-Tac-Toe Game</h1>
+    <div id="scoreboard">
+      <p class="score">Player 1: <span id="player-one-score">0</span></p>
+      <p class="score">Player 2: <span id="player-two-score">0</span></p>
+    </div>
+    <div>
+      <div id="player-turn">
+        <span id="player-turn-text">Player One's</span> Turn
+      </div>
+      <div id="btn-group">
+        <button class="btn" id="reset-round-btn">Reset Round</button>
+        <button class="btn" id="reset-game-btn">Reset Game</button>
+      </div>
+    </div>
+    <main id="grid">
+      <div class="tile" data-id="1"></div>
+      <div class="tile" data-id="2"></div>
+      <div class="tile" data-id="3"></div>
+      <div class="tile" data-id="4"></div>
+      <div class="tile" data-id="5"></div>
+      <div class="tile" data-id="6"></div>
+      <div class="tile" data-id="7"></div>
+      <div class="tile" data-id="8"></div>
+      <div class="tile" data-id="9"></div>
+    </main>
+  </body>
 </html>
