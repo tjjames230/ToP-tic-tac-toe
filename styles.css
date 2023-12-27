@@ -13,6 +13,24 @@ body {
   justify-content: center;
   align-items: center;
   gap: 25px;
+  font-size: 16px;
+}
+
+#btn-group {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: none;
+}
+
+#player-info {
+  display: flex;
+  justify-content: space-between;
+  min-width: 470px;
 }
 
 #scoreboard {
@@ -22,13 +40,25 @@ body {
 }
 
 #grid {
-  width: 500px;
-  height: 500px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
 .tile {
-  background-color: red;
+  background-color: white;
+  border-radius: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
 }
