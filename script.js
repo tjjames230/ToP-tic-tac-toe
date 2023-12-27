@@ -60,8 +60,9 @@ const boardUI = (() => {
   const tiles = document.querySelectorAll(".tile");
 
   tiles.forEach((tile) => {
-    tile.addEventListener("click", () => {
-      console.log(1);
+    tile.addEventListener("click", (e) => {
+      e.target.innerText = Players.getPlayer().symbol;
+      Players.updateTurn(Players.getPlayer());
     });
   });
 })();
