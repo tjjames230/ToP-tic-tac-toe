@@ -46,6 +46,10 @@ const Gameboard = (() => {
     ];
     Players.playerOne.playersTurn = true;
     Players.playerTwo.playersTurn = false;
+    boardUI.tiles.forEach((tile) => {
+      tile.innerText = "";
+    });
+    boardUI.playerTurn.innerText = "Player 1";
   };
 
   return {
@@ -58,13 +62,26 @@ const Gameboard = (() => {
 
 const boardUI = (() => {
   const tiles = document.querySelectorAll(".tile");
+  const resetRoundBtn = document.querySelector("#reset-round-btn");
+  const resetGameBtn = document.querySelector("#reset-game-btn");
+  const playerTurn = document.querySelector("#player-turn-text");
+  const playerOneScore = document.querySelector("#player-one-score");
+  const playerTwoScore = document.querySelector("#player-two-score");
 
   tiles.forEach((tile) => {
     tile.addEventListener("click", (e) => {
       e.target.innerText = Players.getPlayer().symbol;
       Players.updateTurn(Players.getPlayer());
+      playerTurn.innerText = Players.getPlayer().name;
     });
   });
+
+  resetRoundBtn.addEventListener("click", Gameboard.resetRound);
+
+  return {
+    tiles,
+    playerTurn,
+  };
 })();
 
 const GameController = (() => {
