@@ -56,6 +56,16 @@ const Gameboard = (() => {
   };
 })();
 
+const boardUI = (() => {
+  const tiles = document.querySelectorAll(".tile");
+
+  tiles.forEach((tile) => {
+    tile.addEventListener("click", () => {
+      console.log(1);
+    });
+  });
+})();
+
 const GameController = (() => {
   let gameOver = false;
   const winningBoard = [
@@ -118,6 +128,10 @@ const Players = (() => {
   const playerOne = createPlayers("Player 1", "X", "human", true);
   const playerTwo = createPlayers("Player 2", "O", "ai", false);
 
+  const getPlayer = () => {
+    return playerOne.playersTurn === true ? playerOne : playerTwo;
+  };
+
   const checkPlayerTurn = (player) => {
     return player.playersTurn;
   };
@@ -135,6 +149,7 @@ const Players = (() => {
   return {
     playerOne,
     playerTwo,
+    getPlayer,
     checkPlayerTurn,
     updateTurn,
   };
