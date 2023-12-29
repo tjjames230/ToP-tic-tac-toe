@@ -84,7 +84,7 @@ const boardUI = (() => {
 })();
 
 const GameController = (() => {
-  let gameOver = false;
+  let gameOver;
   const winningBoard = [
     [0, 1, 2],
     [3, 4, 5],
@@ -103,22 +103,14 @@ const GameController = (() => {
 
   const checkWinner = (player) => {
     let checkedBoxes = player.checkedBoxes;
+    const checker = (arr, target) => target.every((v) => arr.includes(v));
 
     for (let i = 0; i < winningBoard.length; i++) {
       const winCondition = winningBoard[i];
-      let hasWon = true;
-
-      for (let j = 0; j < winCondition.length; j++) {
-        if (!checkedBoxes.includes(winCondition[j])) {
-          hasWon = false;
-          break;
-        }
-      }
+      let hasWon = checker(winCondition, checkedBoxes);
 
       if (hasWon) {
-        gameOver = true;
         player.score++;
-        console.log(`${player.name} is the winner!`);
         return true;
       }
     }
@@ -128,6 +120,7 @@ const GameController = (() => {
 
   return {
     checkGameOver,
+    checkWinner,
   };
 })();
 
