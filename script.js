@@ -1,31 +1,24 @@
 const Gameboard = (() => {
-  let currentBoard = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-  ];
+  let currentBoard = ["", "", "", "", "", "", "", "", ""];
 
   const getCurrentBoard = () => {
     return currentBoard;
   };
 
-  const makeMove = (player) => {
+  const makeMove = (player, num) => {
     if (Players.checkPlayerTurn(player)) {
       /* if a valid spot is picked, it will update the player's turn */
-      if (updateBoard(player)) {
+      if (updateBoardState(player, num)) {
         Players.updateTurn(player);
       }
       GameController.checkGameOver();
     }
   };
 
-  const updateBoard = (player) => {
-    let row = window.prompt("Pick a row: ");
-    let column = window.prompt("Pick a column: ");
-
-    if (typeof getCurrentBoard()[row][column] === "number") {
-      player.checkedBoxes.push(currentBoard[row][column]);
-      getCurrentBoard()[row][column] = player.symbol;
+  const updateBoardState = (player, num) => {
+    if (getCurrentBoard()[num] === "") {
+      player.checkedBoxes.push(num);
+      getCurrentBoard()[num] = player.symbol;
       return true;
     } else {
       console.log("That spot has been taken, please use a new number");
@@ -39,15 +32,14 @@ const Gameboard = (() => {
   };
 
   const resetRound = () => {
-    currentBoard = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-    ];
+    currentBoard = ["", "", "", "", "", "", "", "", ""];
     Players.playerOne.playersTurn = true;
     Players.playerTwo.playersTurn = false;
+    Players.playerOne.checkedBoxes = [];
+    Players.playerTwo.checkedBoxes = [];
     boardUI.tiles.forEach((tile) => {
       tile.innerText = "";
+      tile.classList.remove("green", "blue");
     });
     boardUI.playerTurn.innerText = "Player 1";
   };
@@ -70,13 +62,20 @@ const boardUI = (() => {
 
   tiles.forEach((tile) => {
     tile.addEventListener("click", (e) => {
-      e.target.innerText = Players.getPlayer().symbol;
-      Players.updateTurn(Players.getPlayer());
-      playerTurn.innerText = Players.getPlayer().name;
+      if (e.target.innerText === "") {
+        const num = e.target.dataset.id;
+        e.target.innerText = Players.getPlayer().symbol;
+        e.target.classList.add(Players.getPlayer().color);
+        Gameboard.makeMove(Players.getPlayer(), num);
+        playerOneScore.innerText = Players.playerOne.score;
+        playerTwoScore.innerText = Players.playerTwo.score;
+        playerTurn.innerText = Players.getPlayer().name;
+      }
     });
   });
 
   resetRoundBtn.addEventListener("click", Gameboard.resetRound);
+  resetGameBtn.addEventListener("click", Gameboard.resetGame);
 
   return {
     tiles,
@@ -118,6 +117,7 @@ const GameController = (() => {
 
       if (hasWon) {
         gameOver = true;
+        player.score++;
         console.log(`${player.name} is the winner!`);
         return true;
       }
@@ -132,7 +132,7 @@ const GameController = (() => {
 })();
 
 const Players = (() => {
-  const createPlayers = (player, symbol, type, turn) => {
+  const createPlayers = (player, symbol, type, turn, color) => {
     return {
       name: player,
       symbol: symbol,
@@ -140,11 +140,12 @@ const Players = (() => {
       type: type,
       checkedBoxes: [],
       playersTurn: turn,
+      color: color,
     };
   };
 
-  const playerOne = createPlayers("Player 1", "X", "human", true);
-  const playerTwo = createPlayers("Player 2", "O", "ai", false);
+  const playerOne = createPlayers("Player 1", "X", "human", true, "green");
+  const playerTwo = createPlayers("Player 2", "O", "ai", false, "blue");
 
   const getPlayer = () => {
     return playerOne.playersTurn === true ? playerOne : playerTwo;
