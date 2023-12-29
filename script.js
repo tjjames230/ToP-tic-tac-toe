@@ -88,7 +88,7 @@ const boardUI = (() => {
 })();
 
 const GameController = (() => {
-  let gameOver;
+  let gameOver = false;
   const winningBoard = [
     ["0", "1", "2"],
     ["3", "4", "5"],
@@ -101,7 +101,7 @@ const GameController = (() => {
   ];
 
   const checkGameOver = () => {
-    checkWinner(Players.playerOne) || checkWinner(Players.playerTwo);
+    gameOver = checkWinner(Players.playerOne) || checkWinner(Players.playerTwo);
     return gameOver;
   };
 
