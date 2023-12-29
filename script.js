@@ -75,7 +75,11 @@ const boardUI = (() => {
   });
 
   resetRoundBtn.addEventListener("click", Gameboard.resetRound);
-  resetGameBtn.addEventListener("click", Gameboard.resetGame);
+  resetGameBtn.addEventListener("click", () => {
+    Gameboard.resetGame();
+    playerOneScore.innerText = Players.playerOne.score;
+    playerTwoScore.innerText = Players.playerTwo.score;
+  });
 
   return {
     tiles,
@@ -86,14 +90,14 @@ const boardUI = (() => {
 const GameController = (() => {
   let gameOver;
   const winningBoard = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+    ["0", "1", "2"],
+    ["3", "4", "5"],
+    ["6", "7", "8"],
+    ["0", "3", "6"],
+    ["1", "4", "7"],
+    ["2", "5", "8"],
+    ["0", "4", "8"],
+    ["2", "4", "6"],
   ];
 
   const checkGameOver = () => {
@@ -107,7 +111,7 @@ const GameController = (() => {
 
     for (let i = 0; i < winningBoard.length; i++) {
       const winCondition = winningBoard[i];
-      let hasWon = checker(winCondition, checkedBoxes);
+      let hasWon = checker(checkedBoxes, winCondition);
 
       if (hasWon) {
         player.score++;
