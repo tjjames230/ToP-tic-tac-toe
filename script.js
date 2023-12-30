@@ -32,6 +32,7 @@ const Gameboard = (() => {
   };
 
   const resetRound = () => {
+    GameController.checkGameOver();
     currentBoard = ["", "", "", "", "", "", "", "", ""];
     Players.playerOne.playersTurn = true;
     Players.playerTwo.playersTurn = false;
@@ -72,6 +73,8 @@ const boardUI = (() => {
     }
   };
 
+  const displayWinner = () => {};
+
   tiles.forEach((tile) => {
     tile.addEventListener("click", tileClickEvent);
   });
@@ -87,6 +90,7 @@ const boardUI = (() => {
     tiles,
     tileClickEvent,
     playerTurn,
+    displayWinner,
   };
 })();
 
@@ -118,9 +122,6 @@ const GameController = (() => {
 
       if (hasWon) {
         player.score++;
-        boardUI.tiles.forEach((tile) => {
-          tile.removeEventListener("click", boardUI.tileClickEvent);
-        });
         return true;
       }
     }
@@ -130,6 +131,7 @@ const GameController = (() => {
 
   return {
     checkGameOver,
+    gameOver,
   };
 })();
 
