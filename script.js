@@ -60,18 +60,20 @@ const boardUI = (() => {
   const playerOneScore = document.querySelector("#player-one-score");
   const playerTwoScore = document.querySelector("#player-two-score");
 
+  const tileClickEvent = (e) => {
+    if (e.target.innerText === "") {
+      const num = e.target.dataset.id;
+      e.target.innerText = Players.getPlayer().symbol;
+      e.target.classList.add(Players.getPlayer().color);
+      Gameboard.makeMove(Players.getPlayer(), num);
+      playerOneScore.innerText = Players.playerOne.score;
+      playerTwoScore.innerText = Players.playerTwo.score;
+      playerTurn.innerText = Players.getPlayer().name;
+    }
+  };
+
   tiles.forEach((tile) => {
-    tile.addEventListener("click", (e) => {
-      if (e.target.innerText === "") {
-        const num = e.target.dataset.id;
-        e.target.innerText = Players.getPlayer().symbol;
-        e.target.classList.add(Players.getPlayer().color);
-        Gameboard.makeMove(Players.getPlayer(), num);
-        playerOneScore.innerText = Players.playerOne.score;
-        playerTwoScore.innerText = Players.playerTwo.score;
-        playerTurn.innerText = Players.getPlayer().name;
-      }
-    });
+    tile.addEventListener("click", tileClickEvent);
   });
 
   resetRoundBtn.addEventListener("click", Gameboard.resetRound);
@@ -83,6 +85,7 @@ const boardUI = (() => {
 
   return {
     tiles,
+    tileClickEvent,
     playerTurn,
   };
 })();
@@ -115,6 +118,9 @@ const GameController = (() => {
 
       if (hasWon) {
         player.score++;
+        boardUI.tiles.forEach((tile) => {
+          tile.removeEventListener("click", boardUI.tileClickEvent);
+        });
         return true;
       }
     }
