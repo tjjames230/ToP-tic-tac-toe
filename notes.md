@@ -18,3 +18,7 @@ END GAME
 - message should pop up and announce the winner
 - reset will set the scores back to 0
 - otherwise rounds will continue to add up
+
+TO DO
+
+- need to add condition for draws
