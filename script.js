@@ -32,7 +32,6 @@ const Gameboard = (() => {
   };
 
   const resetRound = () => {
-    GameController.checkGameOver();
     currentBoard = ["", "", "", "", "", "", "", "", ""];
     Players.playerOne.playersTurn = true;
     Players.playerTwo.playersTurn = false;
@@ -41,6 +40,7 @@ const Gameboard = (() => {
     boardUI.tiles.forEach((tile) => {
       tile.innerText = "";
       tile.classList.remove("green", "blue");
+      tile.addEventListener("click", boardUI.tileClickEvent);
     });
     boardUI.playerTurn.innerText = "Player 1";
   };
@@ -122,6 +122,10 @@ const GameController = (() => {
 
       if (hasWon) {
         player.score++;
+        console.log("score has been added");
+        boardUI.tiles.forEach((tile) => {
+          tile.removeEventListener("click", boardUI.tileClickEvent);
+        });
         return true;
       }
     }
