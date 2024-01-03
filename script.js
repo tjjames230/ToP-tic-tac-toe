@@ -1,3 +1,4 @@
+// this method controls the state of the board
 const Gameboard = (() => {
   let currentBoard = ["", "", "", "", "", "", "", "", ""];
 
@@ -54,6 +55,7 @@ const Gameboard = (() => {
   };
 })();
 
+// this method handles the UI related updates to the board
 const boardUI = (() => {
   const tiles = document.querySelectorAll(".tile");
   const resetRoundBtn = document.querySelector("#reset-round-btn");
@@ -99,6 +101,7 @@ const boardUI = (() => {
   };
 })();
 
+// this method checks if the game is still active, if there is a winner or draw etc.
 const GameController = (() => {
   let gameOver = false;
   const winningBoard = [
@@ -153,6 +156,7 @@ const GameController = (() => {
   };
 })();
 
+// this method handles the state of the players
 const Players = (() => {
   const createPlayers = (player, symbol, type, turn, color) => {
     return {
