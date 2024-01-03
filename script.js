@@ -43,6 +43,7 @@ const Gameboard = (() => {
       tile.addEventListener("click", boardUI.tileClickEvent);
     });
     boardUI.playerTurn.innerText = "Player 1";
+    boardUI.winText.innerText = "";
   };
 
   return {
@@ -60,6 +61,7 @@ const boardUI = (() => {
   const playerTurn = document.querySelector("#player-turn-text");
   const playerOneScore = document.querySelector("#player-one-score");
   const playerTwoScore = document.querySelector("#player-two-score");
+  const winText = document.querySelector("#win-text");
 
   const tileClickEvent = (e) => {
     if (e.target.innerText === "") {
@@ -73,7 +75,9 @@ const boardUI = (() => {
     }
   };
 
-  const displayWinner = () => {};
+  const displayWinner = (player) => {
+    winText.innerText = `${player.name} is the winner!`;
+  };
 
   tiles.forEach((tile) => {
     tile.addEventListener("click", tileClickEvent);
@@ -88,6 +92,7 @@ const boardUI = (() => {
 
   return {
     tiles,
+    winText,
     tileClickEvent,
     playerTurn,
     displayWinner,
@@ -115,6 +120,7 @@ const GameController = (() => {
   const checkWinner = (player) => {
     let checkedBoxes = player.checkedBoxes;
     const checker = (arr, target) => target.every((v) => arr.includes(v));
+    const drawCondition = (arr) => arr.every((val) => val.length != 0);
 
     for (let i = 0; i < winningBoard.length; i++) {
       const winCondition = winningBoard[i];
@@ -122,12 +128,20 @@ const GameController = (() => {
 
       if (hasWon) {
         player.score++;
-        console.log("score has been added");
+        boardUI.displayWinner(player);
         boardUI.tiles.forEach((tile) => {
           tile.removeEventListener("click", boardUI.tileClickEvent);
         });
         return true;
       }
+    }
+
+    if (drawCondition(Gameboard.getCurrentBoard())) {
+      console.log("draw message goes here");
+      boardUI.tiles.forEach((tile) => {
+        tile.removeEventListener("click", boardUI.tileClickEvent);
+      });
+      return true;
     }
 
     return false;
