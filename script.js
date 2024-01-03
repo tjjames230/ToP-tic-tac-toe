@@ -137,10 +137,10 @@ const GameController = (() => {
     }
 
     if (drawCondition(Gameboard.getCurrentBoard())) {
-      console.log("draw message goes here");
       boardUI.tiles.forEach((tile) => {
         tile.removeEventListener("click", boardUI.tileClickEvent);
       });
+      boardUI.winText.innerText = "This is a draw!";
       return true;
     }
 
